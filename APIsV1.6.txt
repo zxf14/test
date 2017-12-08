@@ -1,0 +1,96 @@
+﻿------------------------------------------------------------------------------------------------
+OnlineTest System:
+//老师新生成考试
+1./onlineexam/create
+-post 
+{
+	questionNum:20,
+	questionScore:5,
+	startTime:"2017-11-11 13:00:00",
+	endTime:"2017-11-11 14:00:00",
+	examName:"***",
+	course:"JAVA",
+	groupBy:"class",
+	participants:[
+		{email:"123@163.com"},
+		{email:"456@163.com"}
+	]
+}
+
+response
+{
+	status:"success",
+	examID:"4905",
+	password:""
+}
+
+//查看某一考试基本信息（无试题）
+2./onlineexam/exam/{examID}
+-get
+response base info about test ,no questions
+{
+	examName:"***",
+	course:"JAVA",
+	questionNum:20,
+	questionScore:5,
+	startTime:"2017-11-11 13:00:00",
+	endTime:"2017-11-11 14:00:00"
+}
+
+//考生开始考试
+3./onlineexam/start
+-post 
+start test
+{
+	examID:"",
+	email:"",
+	password:""
+}
+
+response
+{
+	status:"success",
+	single:[
+		{
+			questionID:"",
+			category:"",
+			description:""
+			selections:""
+		},...
+	],
+	multiple:[
+		{
+			questionID:"",
+			category:"",
+			description:""
+			selections:""
+		},...
+	]
+}
+
+
+//上传学生名单
+4./onlineexam/loadStudentList
+-post 
+pass list(a binary txt file)
+每一行是考生的信息
+headers:{Content-Type:multipart/form-data}
+
+response
+{
+	status:"success",
+	path:""
+}
+返回保存的路径
+
+5. /onlineexam/getStudentList/{listName}
+//根据{listName.xlsx}的listName来得到其中学生的名单，返回学生的邮箱list
+//listName
+-get
+
+[
+		{email:"123@163.com"},
+		{email:"456@163.com"}
+]
+
+
