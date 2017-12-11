@@ -1,12 +1,14 @@
 package online.exam.datacenter.jerseyservice;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class EndpointResponse {
     private String status;
-    private String path;
+    private Map<String, Object> data;
 
-    public EndpointResponse(String status, String path) {
+    EndpointResponse(String status) {
         this.status = status;
-        this.path = path;
     }
 
     public String getStatus() {
@@ -17,19 +19,16 @@ public class EndpointResponse {
         this.status = status;
     }
 
-    public String getPath() {
-        return path;
-    }
-
-    public void setPath(String path) {
-        this.path = path;
+    public void putDate(String name, Object value){
+        if (data == null) data = new HashMap();
+        data.put(name, value);
     }
 
     @Override
     public String toString() {
-        return "Responnse{" +
+        return "EndpointResponse{" +
                 "status='" + status + '\'' +
-                ", path='" + path + '\'' +
+                ", data=" + data +
                 '}';
     }
 }

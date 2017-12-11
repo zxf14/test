@@ -5,6 +5,8 @@ import javax.ws.rs.ApplicationPath;
 
 import online.exam.datacenter.jerseyservice.OnlineExamEndpoint;
 import online.exam.datacenter.jerseyservice.QuestionEndpoint;
+import org.glassfish.jersey.jackson.JacksonFeature;
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -30,6 +32,8 @@ public class JerseyConfig extends ResourceConfig {
 	}
 
 	private void registerEndpoints() {
+		this.register(JacksonFeature.class);
+		this.register(MultiPartFeature.class);
 		this.register(QuestionEndpoint.class);
 		this.register(OnlineExamEndpoint.class);
 	}
