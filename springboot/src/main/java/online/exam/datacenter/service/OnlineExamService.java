@@ -13,4 +13,6 @@ public interface OnlineExamService {
     List<Student> importFile(InputStream valueAs) throws IOException;
 
     ExamResponse createExam(Exam exam);
+
+    Exam getExam(int examID);
 }

@@ -4,10 +4,12 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serializable;
+
 @Getter
 @Setter
 @ToString
-public class Exam {
+public class Exam implements Serializable {
     private int id;
     private String startTime;
     private String endTime;
@@ -16,7 +18,7 @@ public class Exam {
     private String examName;
     private String course;
     private String groupBy;
+    private String password;
     private String participants;
-//    private List<Student> participants;
 
 }

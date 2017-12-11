@@ -13,4 +13,11 @@ public class OnlineExamSqlProvide {
         }}.toString();
     }
 
+    public String getExam(int examId) {
+
+        return new SQL() {{
+            this.SELECT("*").FROM("exam").WHERE("id = #{examId}");
+        }}.toString();
+    }
+
 }

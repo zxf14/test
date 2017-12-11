@@ -36,12 +36,18 @@ public class OnlineExamServiceImpl implements OnlineExamService {
 
     @Override
     public ExamResponse createExam(Exam exam) {
+        exam.setPassword(System.currentTimeMillis()+"");
         onlineExamMapper.createExam(exam);
         ExamResponse response = new ExamResponse();
         response.setStatus("success");
         response.setExamID(exam.getId());
-        response.setPassword(System.currentTimeMillis()+"");
+        response.setPassword(exam.getPassword());
         return response;
+    }
+
+    @Override
+    public Exam getExam(int examID) {
+        return onlineExamMapper.getExam(examID);
     }
 
 }

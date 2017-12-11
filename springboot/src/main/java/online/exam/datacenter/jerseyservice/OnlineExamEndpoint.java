@@ -71,11 +71,17 @@ public class OnlineExamEndpoint {
             @ApiResponse(code = 200, message = "OK", response = TestInfo.class),
             @ApiResponse(code = 404, message = "NOT FOUND")
     })
-    public Response checkExam(@ApiParam @PathParam("examID") String examID) {
+    public Response getExam(@ApiParam @PathParam("examID") int examID) {
 
-        Map<String, Object> response = new HashMap();
+        Map<String, Object> response = new HashMap<String, Object>();
+        Exam exam = onlineExamService.getExam(examID);
         response.put("status", "success");
-        response.put("path", "sadasdsdas");
+        response.put("examName", exam.getExamName());
+        response.put("course", exam.getCourse());
+        response.put("questionNum", exam.getQuestionNum());
+        response.put("questionScore", exam.getQuestionScore());
+        response.put("startTime", exam.getStartTime());
+        response.put("endTime", exam.getEndTime());
         return Response.status(Response.Status.OK).entity(new Gson().toJson(response)).build();
     }
 
