@@ -1,14 +1,21 @@
 package online.exam.datacenter.model;
 
-import java.sql.Timestamp;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-/**
- * Created by zhouxiaofan on 2017/12/8.
- */
+@Getter
+@Setter
+@ToString
 public class Exam {
     private Long examID;
-    private Timestamp startTime;
-    private Timestamp endTime;
-    private Long course_id;
-    private int user;
+    private String startTime;
+    private String endTime;
+    private int questionNum;
+    private int questionScore;
+    private String examName;
+    private String course;
+    private String groupBy;
+    private String participants;
+
 }

@@ -3,7 +3,10 @@ package online.exam.datacenter.jerseyservice;
 import com.google.gson.Gson;
 import io.swagger.annotations.*;
 import io.swagger.util.Json;
+import online.exam.datacenter.VO.ExamResponse;
+import online.exam.datacenter.model.Exam;
 import online.exam.datacenter.model.ExamCreation;
+import online.exam.datacenter.model.Student;
 import online.exam.datacenter.model.TestInfo;
 import online.exam.datacenter.service.OnlineExamService;
 import org.glassfish.jersey.media.multipart.FormDataBodyPart;
@@ -18,6 +21,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Component
 @Path("/onlineexam")
@@ -41,17 +47,19 @@ public class OnlineExamEndpoint {
     })
     public Response loadStudentList(@ApiParam FormDataMultiPart form) {
         LOGGER.info("begin to upload student list!!");
+        Map<String, Object> response = new HashMap<String, Object>();
         try {
             FormDataBodyPart filePart = form.getField("file");
-            onlineExamService.importFile(filePart.getValueAs(InputStream.class));
+            List<Student> studentList = onlineExamService.importFile(filePart.getValueAs(InputStream.class));
+            response.put("status", "success");
+            response.put("participants", studentList);
+            return Response.status(Response.Status.OK).entity(response).build();
         } catch (IOException e) {
             e.printStackTrace();
-            EndpointResponse response = new EndpointResponse("fail");
-            response.putDate("errMsg", e.getMessage());
+            response.put("status", "fail");
+            response.put("errMsg", e.getMessage());
             return Response.status(Response.Status.OK).entity(response).build();
         }
-        EndpointResponse response = new EndpointResponse("success");
-        return Response.status(Response.Status.OK).entity(response).build();
     }
 
 
@@ -67,8 +75,9 @@ public class OnlineExamEndpoint {
     })
     public Response checkExam(@ApiParam @PathParam("examID") String examID) {
 
-        EndpointResponse response = new EndpointResponse("success");
-        response.putDate("path","sadasdsdas");
+        Map<String, Object> response = new HashMap();
+        response.put("status", "success");
+        response.put("path", "sadasdsdas");
         return Response.status(Response.Status.OK).entity(new Gson().toJson(response)).build();
     }
 
@@ -96,8 +105,8 @@ public class OnlineExamEndpoint {
             @ApiResponse(code = 200, message = "OK", response = EndpointResponse.class),
             @ApiResponse(code = 404, message = "NOT FOUND")
     })
-    public Response createExam(@ApiParam ExamCreation examInfo) {
-
-        return null;
+    public Response createExam(@ApiParam Exam exam) {
+        ExamResponse response = onlineExamService.createExam(exam);
+        return Response.status(Response.Status.OK).entity(new Gson().toJson(response)).build();
     }
 }
