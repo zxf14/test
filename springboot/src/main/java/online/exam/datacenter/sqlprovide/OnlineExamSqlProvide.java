@@ -8,7 +8,8 @@ public class OnlineExamSqlProvide {
     public String createExam(Exam exam) {
 
         return new SQL() {{
-            this.INSERT_INTO("question").VALUES("course_id, category, description, selections, answer","#{exam.course_id}, #{question.category}, #{question.description}, #{question.selections}, #{question.answer}");
+            this.INSERT_INTO("exam").VALUES("course_id, category, description, selections, answer","#{exam.course_id}, #{question.category}, #{question.description}, #{question.selections}, #{question.answer}").SELECT("examID");
+
         }}.toString();
     }
 

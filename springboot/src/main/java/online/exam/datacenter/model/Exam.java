@@ -8,7 +8,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Exam {
-    private Long examID;
+    private int id;
     private String startTime;
     private String endTime;
     private int questionNum;
@@ -17,5 +17,6 @@ public class Exam {
     private String course;
     private String groupBy;
     private String participants;
+//    private List<Student> participants;
 
 }

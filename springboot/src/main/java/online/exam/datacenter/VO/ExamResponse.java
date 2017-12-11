@@ -9,6 +9,6 @@ import lombok.ToString;
 @ToString
 public class ExamResponse {
     private String status;
-    private long examID;
+    private int examID;
     private String password;
 }

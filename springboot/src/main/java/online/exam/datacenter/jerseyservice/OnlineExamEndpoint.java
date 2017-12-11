@@ -2,10 +2,8 @@ package online.exam.datacenter.jerseyservice;
 
 import com.google.gson.Gson;
 import io.swagger.annotations.*;
-import io.swagger.util.Json;
 import online.exam.datacenter.VO.ExamResponse;
 import online.exam.datacenter.model.Exam;
-import online.exam.datacenter.model.ExamCreation;
 import online.exam.datacenter.model.Student;
 import online.exam.datacenter.model.TestInfo;
 import online.exam.datacenter.service.OnlineExamService;
@@ -91,14 +89,14 @@ public class OnlineExamEndpoint {
             @ApiResponse(code = 404, message = "NOT FOUND")
     })
     public Response startExam(
-            @ApiParam ExamCreation examInfo) {
+            @ApiParam Exam examInfo) {
 
         return null;
     }
 
     @POST
     @Path("/create")
-    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Consumes(MediaType.APPLICATION_JSON)
     @ApiOperation(
             value = "老师新生成考试")
     @ApiResponses(value = {

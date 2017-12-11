@@ -13,8 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 
 @Service
@@ -30,7 +29,7 @@ public class OnlineExamServiceImpl implements OnlineExamService {
         //第0行为标题
         for (int rowNum = 1; rowNum <= xssfSheet.getLastRowNum(); rowNum++) {
             XSSFRow xssfRow = xssfSheet.getRow(rowNum);
-            students.add(new Student(xssfRow.getCell(0).getStringCellValue()));;
+            students.add(new Student(xssfRow.getCell(0).getStringCellValue()));
         }
         return students;
     }
@@ -38,8 +37,11 @@ public class OnlineExamServiceImpl implements OnlineExamService {
     @Override
     public ExamResponse createExam(Exam exam) {
         onlineExamMapper.createExam(exam);
-        return null;
+        ExamResponse response = new ExamResponse();
+        response.setStatus("success");
+        response.setExamID(exam.getId());
+        response.setPassword(System.currentTimeMillis()+"");
+        return response;
     }
-
 
 }
